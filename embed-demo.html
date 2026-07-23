@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天问·方寸 — 中国航空航天邮票特展</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&family=Noto+Serif+SC:wght@400;600;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · macrostructure: Exhibition Masthead · tone: editorial-atmospheric · anchor hue: warm-gold + vermilion
+ * 示例首页：演示球形展厅（stamp-sphere-embed.html）作为页面一部分的内嵌方式
+ */
+:root {
+  --paper: oklch(10% 0.02 260);
+  --paper-2: oklch(13% 0.024 260);
+  --paper-3: oklch(16% 0.028 260);
+  --ink: oklch(92% 0.01 90);
+  --ink-dim: oklch(70% 0.015 90);
+  --ink-faint: oklch(52% 0.02 90);
+  --gold: oklch(78% 0.12 85);
+  --gold-dim: oklch(60% 0.09 85);
+  --vermilion: oklch(60% 0.19 30);
+  --line: oklch(85% 0.01 90 / 0.12);
+  --line-strong: oklch(85% 0.01 90 / 0.26);
+  --font-display: "ZCOOL QingKe HuangYou", "Noto Serif SC", serif;
+  --font-body: "Noto Serif SC", "Songti SC", serif;
+  --font-mono: "Space Mono", "Courier New", monospace;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --sp-1: 8px; --sp-2: 16px; --sp-3: 24px; --sp-4: 40px; --sp-5: 72px; --sp-6: 120px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: oklch(78% 0.12 85 / 0.28); color: var(--ink); }
+
+/* ---------- 星空氛围层 ---------- */
+.sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.sky i {
+  position: absolute; left: 0; right: 0; height: 200%;
+  background-image: radial-gradient(circle, oklch(90% 0.01 90 / 0.5) 1px, transparent 1.6px);
+  background-size: 110px 110px;
+  opacity: 0.35;
+  animation: drift 90s linear infinite;
+}
+.sky i:nth-child(2) {
+  background-size: 60px 60px;
+  background-image: radial-gradient(circle, oklch(80% 0.06 85 / 0.4) 1px, transparent 1.5px);
+  opacity: 0.2;
+  animation-duration: 140s;
+  animation-direction: reverse;
+}
+@keyframes drift { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+.glow {
+  position: fixed; z-index: 0; pointer-events: none;
+  width: 60vw; height: 60vw; border-radius: 50%;
+  background: radial-gradient(circle, oklch(30% 0.06 260 / 0.35), transparent 65%);
+  top: -20vw; right: -15vw;
+}
+main, header, footer { position: relative; z-index: 1; }
+
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--sp-3); }
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em;
+  color: var(--ink-faint);
+}
+.topbar .wrap {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 14px; padding-bottom: 14px; gap: var(--sp-2);
+}
+.topbar b { color: var(--gold-dim); font-weight: 400; }
+.topbar .dot { color: var(--vermilion); }
+
+/* ---------- 开场：邮展主视觉 ---------- */
+.opening { padding: var(--sp-6) 0 var(--sp-5); position: relative; }
+.opening .wrap {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--sp-5); align-items: start;
+}
+.eyebrow {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em;
+  color: var(--vermilion); text-transform: uppercase;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: var(--sp-3);
+}
+.eyebrow::after { content: ""; flex: 0 0 48px; height: 1px; background: var(--vermilion); opacity: 0.6; }
+h1.masthead {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 9vw, 116px);
+  line-height: 1.02;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+h1.masthead .accent { color: var(--gold); }
+.tagline {
+  margin-top: var(--sp-3);
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--ink-dim);
+  letter-spacing: 0.14em;
+}
+.stats {
+  margin-top: var(--sp-4);
+  display: flex; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap;
+  font-family: var(--font-mono);
+}
+.stats .num { font-size: 34px; font-weight: 700; color: var(--gold); line-height: 1; }
+.stats .lbl { font-size: 10px; letter-spacing: 0.22em; color: var(--ink-faint); text-transform: uppercase; }
+.stats .sep { width: 1px; height: 34px; background: var(--line-strong); align-self: center; }
+
+/* 邮戳 */
+.postmark {
+  position: absolute; top: var(--sp-5); right: 4%;
+  width: 150px; height: 150px;
+  opacity: 0.9;
+  animation: spin 46s linear infinite;
+  pointer-events: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 右栏引言 */
+.lede { border-left: 2px solid var(--gold-dim); padding-left: var(--sp-3); }
+.lede p { color: var(--ink-dim); font-size: 15px; letter-spacing: 0.04em; margin-bottom: var(--sp-2); text-align: justify; }
+.lede p strong { color: var(--ink); font-weight: 600; }
+.perf {
+  margin-top: var(--sp-3);
+  height: 10px;
+  background-image: radial-gradient(circle, var(--line-strong) 2px, transparent 2.6px);
+  background-size: 16px 10px; background-repeat: repeat-x; background-position: center;
+  opacity: 0.8;
+}
+.lede .note { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ink-faint); margin-top: var(--sp-2); }
+
+/* ---------- 跑马灯 ---------- */
+.marquee {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  overflow: hidden; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.24em;
+  color: var(--ink-faint);
+  padding: 12px 0;
+}
+.marquee .track { display: inline-block; animation: scroll 38s linear infinite; }
+.marquee .track span { margin: 0 1.4em; }
+.marquee .track em { font-style: normal; color: var(--gold-dim); }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- 区块标题 ---------- */
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); margin-bottom: var(--sp-4); flex-wrap: wrap; }
+.sec-head .k {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em;
+  color: var(--vermilion); text-transform: uppercase;
+}
+.sec-head h2 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px); letter-spacing: 0.1em; color: var(--ink);
+}
+.sec-head .hint { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-faint); }
+
+/* ---------- 展厅嵌入区 ---------- */
+.hall { padding: var(--sp-6) 0 var(--sp-5); }
+.frame-wrap {
+  border: 1px solid var(--line-strong);
+  background: oklch(7% 0.012 260);
+  position: relative;
+}
+.frame-wrap::before, .frame-wrap::after {
+  content: ""; position: absolute; width: 18px; height: 18px; pointer-events: none;
+}
+.frame-wrap::before { top: -1px; left: -1px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.frame-wrap::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+.frame-wrap iframe {
+  display: block; width: 100%; height: min(74vh, 760px); border: 0;
+  background: oklch(7% 0.012 260);
+}
+.frame-cap {
+  display: flex; justify-content: space-between; gap: var(--sp-2); flex-wrap: wrap;
+  margin-top: var(--sp-2);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-faint);
+}
+.frame-cap em { font-style: normal; color: var(--gold-dim); }
+
+/* ---------- 四篇章：编辑列表 ---------- */
+.chapters { padding: var(--sp-5) 0 var(--sp-6); }
+.ch-row {
+  display: grid; grid-template-columns: 88px minmax(0, 1fr) auto;
+  gap: var(--sp-3); align-items: baseline;
+  padding: var(--sp-3) 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+  transition: padding-left 320ms var(--ease-out);
+  cursor: default;
+}
+.ch-row:last-child { border-bottom: 1px solid var(--line); }
+.ch-row::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 0; background: var(--gold);
+  transition: width 320ms var(--ease-out);
+}
+.ch-row:hover { padding-left: var(--sp-3); }
+.ch-row:hover::before { width: 3px; }
+.ch-row .no {
+  font-family: var(--font-display); font-size: 40px; line-height: 1;
+  color: var(--ink-faint); transition: color 320ms var(--ease-out);
+}
+.ch-row:hover .no { color: var(--gold); }
+.ch-row .body .name { font-family: var(--font-display); font-size: 24px; letter-spacing: 0.12em; color: var(--ink); }
+.ch-row .body .name small { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.24em; color: var(--vermilion); margin-left: 12px; }
+.ch-row .body .desc { font-size: 13px; color: var(--ink-dim); margin-top: 6px; letter-spacing: 0.04em; }
+.ch-row .years { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.14em; color: var(--ink-faint); white-space: nowrap; }
+
+/* ---------- 嵌入说明 ---------- */
+.embed-note { padding: 0 0 var(--sp-6); }
+.embed-note .panel {
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  padding: var(--sp-4);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--sp-4);
+  align-items: center;
+}
+.embed-note h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px; letter-spacing: 0.1em; margin-bottom: var(--sp-2); }
+.embed-note p { font-size: 13px; color: var(--ink-dim); letter-spacing: 0.04em; }
+.embed-note code {
+  display: block;
+  font-family: var(--font-mono); font-size: 12px; line-height: 1.9;
+  color: var(--gold);
+  background: oklch(8% 0.014 260);
+  border: 1px solid var(--line);
+  padding: var(--sp-2) var(--sp-3);
+  white-space: pre; overflow-x: auto;
+}
+.embed-note code .c { color: var(--ink-faint); }
+
+/* ---------- 页脚 ---------- */
+footer { border-top: 1px solid var(--line); padding: var(--sp-4) 0 var(--sp-5); }
+footer .wrap { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-3); flex-wrap: wrap; }
+footer .brand { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.14em; color: var(--gold); }
+footer .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--ink-faint); }
+
+/* ---------- 滚动显现 ---------- */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 860px) {
+  .opening .wrap { grid-template-columns: 1fr; }
+  .postmark { display: none; }
+  .ch-row { grid-template-columns: 56px minmax(0, 1fr); }
+  .ch-row .years { grid-column: 2; }
+  .embed-note .panel { grid-template-columns: 1fr; }
+  .frame-wrap iframe { height: 62vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 150ms !important; transition-duration: 150ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true"><i></i><i></i></div>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <span>中国邮政 <span class="dot">·</span> 航空航天邮票特展</span>
+    <span><b>线上展览</b> · 永久开放</span>
+  </div>
+</header>
+
+<main>
+  <!-- 开场主视觉 -->
+  <section class="opening">
+    <svg class="postmark" viewBox="0 0 150 150" aria-hidden="true">
+      <defs>
+        <path id="pm-circ" d="M75,75 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/>
+      </defs>
+      <circle cx="75" cy="75" r="66" fill="none" stroke="oklch(60% 0.19 30)" stroke-width="2.5"/>
+      <circle cx="75" cy="75" r="44" fill="none" stroke="oklch(60% 0.19 30)" stroke-width="1.5"/>
+      <text font-size="11" letter-spacing="3" fill="oklch(60% 0.19 30)" font-family="Space Mono, monospace">
+        <textPath href="#pm-circ">CHINA POST · 中国邮政 · 天问方寸 · 2026 ·</textPath>
+      </text>
+      <text x="75" y="70" text-anchor="middle" font-size="22" fill="oklch(60% 0.19 30)" font-family="ZCOOL QingKe HuangYou, serif">航天</text>
+      <text x="75" y="92" text-anchor="middle" font-size="10" fill="oklch(60% 0.19 30)" font-family="Space Mono, monospace">1951—2022</text>
+    </svg>
+
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">邮票特展 · Philatelic Exhibition</div>
+        <h1 class="masthead">天问<span class="accent">·</span>方寸</h1>
+        <p class="tagline">于方寸之间，藏华夏问天之志。</p>
+        <div class="stats">
+          <div><div class="num">24</div><div class="lbl">套系 Sets</div></div>
+          <div class="sep"></div>
+          <div><div class="num">81</div><div class="lbl">单枚 Stamps</div></div>
+          <div class="sep"></div>
+          <div><div class="num">73</div><div class="lbl">年跨度 Years</div></div>
+        </div>
+      </div>
+      <aside class="lede">
+        <p>从 1951 年第一组航空邮票，到 2022 年中国空间站建成，<strong>中国邮政以 24 套邮票</strong>记录了华夏问天的完整轨迹——东方红一号的乐声、神舟飞船的首飞、嫦娥落月的足迹、天宫筑梦的征程。</p>
+        <p>本展将 81 枚单枚邮票置于<strong>三维斐波那契球面</strong>之上：拖拽旋转、悬停显色、点击翻阅档案，在方寸之间纵览中国航天。</p>
+        <div class="perf" aria-hidden="true"></div>
+        <p class="note">下方展厅为可嵌入组件 · 可置于任意网页</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 跑马灯 -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>航1 <em>航空邮票</em></span><span>特25 <em>苏联人造地球卫星</em></span><span>T.108 <em>航天</em></span><span>T.143 <em>火箭腾飞</em></span><span>2000-22 <em>神舟首飞</em></span><span>特5-2003 <em>载人航天</em></span><span>特6-2007 <em>探月首飞</em></span><span>2013-25 <em>中国梦</em></span><span>特9-2014 <em>落月成功</em></span><span>2020-21 <em>天问一号</em></span><span>2022-27 <em>中国空间站</em></span>
+      <span>航1 <em>航空邮票</em></span><span>特25 <em>苏联人造地球卫星</em></span><span>T.108 <em>航天</em></span><span>T.143 <em>火箭腾飞</em></span><span>2000-22 <em>神舟首飞</em></span><span>特5-2003 <em>载人航天</em></span><span>特6-2007 <em>探月首飞</em></span><span>2013-25 <em>中国梦</em></span><span>特9-2014 <em>落月成功</em></span><span>2020-21 <em>天问一号</em></span><span>2022-27 <em>中国空间站</em></span>
+    </div>
+  </div>
+
+  <!-- 三维展厅（内嵌组件） -->
+  <section class="hall">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="k">Exhibition Hall · 01</div>
+          <h2>三维球形展厅</h2>
+        </div>
+        <div class="hint">拖拽旋转 · 滚轮推拉 · 悬停显色 · 点击查看档案</div>
+      </div>
+      <div class="frame-wrap reveal">
+        <iframe src="stamp-sphere-embed.html" title="三维球形邮票展厅" loading="lazy"></iframe>
+      </div>
+      <div class="frame-cap reveal">
+        <span>Fibonacci Sphere · 81 枚单枚邮票 · 黑白 / 彩色切换</span>
+        <span><em>组件</em> stamp-sphere-embed.html</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四篇章 -->
+  <section class="chapters">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <div class="k">Chapters · 02</div>
+          <h2>四大篇章</h2>
+        </div>
+        <div class="hint">1951 — 2022 · 按时期分卷</div>
+      </div>
+
+      <div class="ch-row reveal">
+        <div class="no">壹</div>
+        <div class="body">
+          <div class="name">星火初燃<small>IGNITION</small></div>
+          <div class="desc">从航空邮票到东方红一号，方寸之间记录中国航天的蹒跚起步。</div>
+        </div>
+        <div class="years">最初 — 1980s</div>
+      </div>
+      <div class="ch-row reveal">
+        <div class="no">贰</div>
+        <div class="body">
+          <div class="name">神舟问天<small>SHENZHOU</small></div>
+          <div class="desc">神舟飞船首飞成功、载人航天梦圆，邮票见证每一次腾飞。</div>
+        </div>
+        <div class="years">1990s — 2000s</div>
+      </div>
+      <div class="ch-row reveal">
+        <div class="no">叁</div>
+        <div class="body">
+          <div class="name">筑梦天宫<small>TIANGONG</small></div>
+          <div class="desc">从嫦娥落月到空间站建成，天宫筑梦的每一步都被铭记。</div>
+        </div>
+        <div class="years">2010s — 2020s</div>
+      </div>
+      <div class="ch-row reveal">
+        <div class="no">肆</div>
+        <div class="body">
+          <div class="name">异形珍品<small>RARITIES</small></div>
+          <div class="desc">三角票、个性化邮票等异形珍品，方寸之间的别样风景。</div>
+        </div>
+        <div class="years">跨时期</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 嵌入说明 -->
+  <section class="embed-note">
+    <div class="wrap">
+      <div class="panel reveal">
+        <div>
+          <h3>如何嵌入你的网页</h3>
+          <p>球形展厅是一个完全自包含的组件（约 4.1 MB，邮票与 three.js 全部内联，零外部依赖）。最简单的方式是用 iframe 引入，组件会自适应容器尺寸，样式与脚本完全隔离，不影响宿主页面。</p>
+        </div>
+        <code><span class="c">&lt;!-- 与 stamp-sphere-embed.html 同目录 --&gt;</span>
+&lt;iframe src="stamp-sphere-embed.html"
+        style="width:100%; height:640px; border:0;"
+        title="三维球形邮票展厅"&gt;&lt;/iframe&gt;</code>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">天问·方寸</div>
+    <div class="meta">中国邮政航空航天邮票特展 · 线上展览 · 本页为嵌入示例</div>
+  </div>
+</footer>
+
+<script>
+/* 滚动显现 */
+(function () {
+  var els = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) {
+    els.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
